@@ -55,7 +55,7 @@ class CveUtil(object):
     def create_cve(cls, cve_json):
         openai_api_key=os.environ.get("OPEN_AI_KEY",None)
         client = OpenAI(api_key=openai_api_key)
-        instruction="Your sole purpose is to extract only a single cpe information in the format 'cpe:2.3:a:vendor:product' from the provided CVE summary without any heading and other information."
+        instruction="Your sole purpose is to extract only a single cpe information in the format 'cpe:2.3:a:vendor:product' from the provided CVE summary; Replace a with h for hardware or o for Operating system based on type of vulnerbility. If there is no match please return 'cpe:2.3:a:::'  Answer without any heading and other information."
 
         # Takes the CVSS scores
         if "cvssMetricV31" in cve_json["metrics"]:
