@@ -116,10 +116,15 @@ def vendors_conf_to_dict(conf):
 
     # Transform it into nested dictionary
     cpes = {}
-    for vendor, product in cpes_t:
-        if vendor not in cpes:
-            cpes[vendor] = []
-        cpes[vendor].append(product)
+    try:
+        for vendor, product in cpes_t:
+            if vendor not in cpes:
+                cpes[vendor] = []
+            cpes[vendor].append(product)
+    except Exception as e:
+        info(e)
+        cpes = {}
+    
 
     return cpes
 
