@@ -97,8 +97,10 @@ def run():
                     ]
                 summary = descriptions[0]["value"]
                 cpe_info=cve_data.get("configurations", {})
-                info(cpe_info)
+                #info(cpe_info)
                 if len(cpe_info) == 0:
+                    info(cpe_info)
+                    info(summary)
                     try:
                         prompt= f"CVE SUMMARY:{summary}"
                         
@@ -129,7 +131,7 @@ def run():
                             
                         ]}]
                         cpe_info=cve_data.get("configurations", {})
-                        info(cpe_info)
+                        
                     except Exception as e:
                         cpe=None
                     

@@ -17,17 +17,22 @@ def convert_cpes(conf):
     if not uris:
         uris = nested_lookup("cpe23Uri", conf)
         
-    info(uris)
+    
 
     # Create a list of tuple (vendor, product)
     cpes_t = list(set([tuple(uri.split(":")[3:5]) for uri in uris]))
 
     # Transform it into nested dictionnary
     cpes = {}
-    for vendor, product in cpes_t:
-        if vendor not in cpes:
-            cpes[vendor] = []
-        cpes[vendor].append(product)
+    try:
+        for vendor, product in cpes_t:
+            if vendor not in cpes:
+                cpes[vendor] = []
+            cpes[vendor].append(product)
+    except Exception as e:
+        
+        cpes = {}
+    
 
     return cpes
 
