@@ -3,6 +3,7 @@ from difflib import HtmlDiff
 
 from opencve.constants import PRODUCT_SEPARATOR
 from opencve.models.cwe import Cwe
+from opencve.commands import info
 
 
 def convert_cpes(conf):
@@ -16,7 +17,7 @@ def convert_cpes(conf):
     if not uris:
         uris = nested_lookup("cpe23Uri", conf)
         
-    print(uris)
+    info(uris)
 
     # Create a list of tuple (vendor, product)
     cpes_t = list(set([tuple(uri.split(":")[3:5]) for uri in uris]))
