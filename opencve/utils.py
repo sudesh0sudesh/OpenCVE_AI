@@ -15,6 +15,8 @@ def convert_cpes(conf):
     # Try old NVD CVE format if no criteria found
     if not uris:
         uris = nested_lookup("cpe23Uri", conf)
+        
+    print(uris)
 
     # Create a list of tuple (vendor, product)
     cpes_t = list(set([tuple(uri.split(":")[3:5]) for uri in uris]))
