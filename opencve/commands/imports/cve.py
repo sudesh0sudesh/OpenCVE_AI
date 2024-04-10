@@ -134,7 +134,7 @@ def run():
                         info(cpe_info)
                         
                     except Exception as e:
-                        cpe=None
+                        cpe_info={}
                     
                     
                 vendors_products = convert_cpes(cpe_info)

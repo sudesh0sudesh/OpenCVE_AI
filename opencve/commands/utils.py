@@ -117,7 +117,7 @@ class CveUtil(object):
                 info(cpe_info)
                 
             except Exception as e:
-                cpe=None
+                cpe_info={}
         
         vendors_products = convert_cpes(cpe_info)
         vendors_flatten = flatten_vendors(vendors_products)
