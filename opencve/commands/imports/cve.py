@@ -2,6 +2,8 @@ import time
 
 import arrow
 import requests
+import os
+from openai import OpenAI
 
 from opencve.commands import info, timed_operation
 from opencve.extensions import db
@@ -42,6 +44,9 @@ def run():
 
     start_index = 0
     total_results = 0
+    openai_api_key=os.environ.get("OPEN_AI_KEY",None)
+    client = OpenAI(api_key=openai_api_key)
+    instruction="Your sole purpose is to extract only a single cpe information from the provided CVE summary without any heading and other information."
 
     while start_index <= total_results:
         url = url_template.format(idx=start_index)
@@ -83,16 +88,56 @@ def run():
 
                 # Construct CWE and CPE lists
                 cwes = weaknesses_to_flat(cve_data.get("weaknesses"))
-                vendors_products = convert_cpes(cve_data.get("configurations", {}))
-                vendors_flatten = flatten_vendors(vendors_products)
-
-                # In case of multiple languages, keep the EN one
+                
+                 # In case of multiple languages, keep the EN one
                 descriptions = cve_data["descriptions"]
                 if len(descriptions) > 1:
                     descriptions = [
                         d for d in descriptions if d["lang"] in ("en", "en-US")
                     ]
                 summary = descriptions[0]["value"]
+                cpe_info=cve_data.get("configurations", {})
+                if len(cpe_info) == 0:
+                    try:
+                        prompt= f"CVE SUMMARY:{summary}"
+                        
+                        completion=client.chat.completions.create(
+                            model="gpt-3.5-turbo",
+                            messages=[
+                                {"role": "system", "content": instruction},
+                                {"role": "user", "content": prompt},
+                            ]
+                        )
+                        cpe=completion.choices[0].message.content
+                        cve_data["configurations"]=[{
+                            "nodes":[
+                                { 
+                                 "operator": "OR",
+                                  "negate": False,
+                                  "cpeMatch": [
+                                      {
+                                            "vulnerable": True,
+                                            "criteria": cpe
+                                      }
+                                  ]
+                                  
+                                 
+                                    
+                                }
+                            
+                            
+                        ]}]
+                        cpe_info=cve_data.get("configurations", {})
+                    except Exception as e:
+                        cpe=None
+                    
+                    
+                vendors_products = convert_cpes(cpe_info)
+                vendors_flatten = flatten_vendors(vendors_products)
+
+               
+                
+                
 
                 # Create the CVEs mappings
                 mappings["cves"].append(
