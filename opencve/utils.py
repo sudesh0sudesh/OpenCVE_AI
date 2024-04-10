@@ -134,10 +134,16 @@ def vendors_dict_to_flat(vendors):
     Takes a list of nested vendors and products and flat them.
     """
     data = []
-    for vendor, products in vendors.items():
-        data.append(vendor)
+    try:
+        
+        for vendor, products in vendors.items():
+            data.append(vendor)
         for product in products:
             data.append(f"{vendor}{PRODUCT_SEPARATOR}{product}")
+    except Exception as e:
+        info(e)
+        data = []
+   
     return data
 
 
