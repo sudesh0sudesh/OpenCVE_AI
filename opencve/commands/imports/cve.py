@@ -46,7 +46,7 @@ def run():
     total_results = 0
     openai_api_key=os.environ.get("OPEN_AI_KEY",None)
     client = OpenAI(api_key=openai_api_key)
-    instruction="Your sole purpose is to extract only a single cpe information from the provided CVE summary without any heading and other information."
+    instruction="Your sole purpose is to extract only a single cpe information in the format 'cpe:2.3:a:vendor:product' from the provided CVE summary without any heading and other information."
 
     while start_index <= total_results:
         url = url_template.format(idx=start_index)
