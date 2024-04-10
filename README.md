@@ -18,7 +18,7 @@
 
 ----------------
 
-The purpose of this FORK is to extract vendor information from summaries using Open AI due to delays in NVD approvals and difficulty in tracking NVDs.
+The purpose of this FORK is to extract vendor information from summaries using Open AI due to delays in NVD approvals and difficulty in tracking Vendors.
 
 Try **for free** OpenCVE on [https://www.opencve.io](https://www.opencve.io) or check [documentation](https://docs.opencve.io) to install it yourself.
 
