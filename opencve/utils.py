@@ -30,7 +30,8 @@ def convert_cpes(conf):
                 cpes[vendor] = []
             cpes[vendor].append(product)
     except Exception as e:
-        
+        info(e)
+        info(f"Error in convert_cpes: {cpes_t}")
         cpes = {}
     
 
