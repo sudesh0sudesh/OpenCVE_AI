@@ -116,6 +116,7 @@ class CveUtil(object):
                 info(cpe_info)
 
             except Exception as e:
+                info(e)
                 cpe_info = {}
 
         vendors_products = convert_cpes(cpe_info)
