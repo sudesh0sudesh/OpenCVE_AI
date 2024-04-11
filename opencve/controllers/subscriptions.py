@@ -1,15 +1,14 @@
 import json
 
-from flask import request, jsonify
+from flask import jsonify, request
 from flask_user import current_user, login_required
+from werkzeug.exceptions import HTTPException
 
 from opencve.controllers.main import main
 from opencve.extensions import db
+from opencve.models import is_valid_uuid
 from opencve.models.products import Product
 from opencve.models.vendors import Vendor
-from opencve.models import is_valid_uuid
-
-from werkzeug.exceptions import HTTPException
 
 
 @main.route("/subscriptions", methods=["POST"])

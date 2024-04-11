@@ -2,7 +2,7 @@ import itertools
 import json
 import operator
 
-from flask import abort, flash, redirect, request, render_template, url_for
+from flask import abort, flash, redirect, render_template, request, url_for
 from flask_user import current_user, login_required
 
 from opencve.controllers.cves import CveController
@@ -13,7 +13,7 @@ from opencve.models import is_valid_uuid
 from opencve.models.changes import Change
 from opencve.models.events import Event
 from opencve.models.tags import CveTag
-from opencve.utils import convert_cpes, get_cwes_details, CustomHtmlHTML
+from opencve.utils import CustomHtmlHTML, convert_cpes, get_cwes_details
 
 
 @main.route("/cve")

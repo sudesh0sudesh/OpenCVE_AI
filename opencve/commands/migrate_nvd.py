@@ -1,12 +1,12 @@
+import time
+
 import click
 import requests
-import time
 from flask.cli import with_appcontext
 
 from opencve.commands import ensure_config, error, info
-from opencve.models.cve import Cve
 from opencve.extensions import db
-
+from opencve.models.cve import Cve
 
 NVD_API_URL = "https://services.nvd.nist.gov/rest/json/cves/2.0"
 

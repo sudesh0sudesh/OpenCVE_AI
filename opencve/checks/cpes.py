@@ -22,13 +22,15 @@ class Cpes(BaseCheck):
         if payload["added"] or payload["removed"]:
 
             # Change the CVE's vendors attribute
-            
-            #changed code by sudesh to fix the issue of stopping cpe data refresh if cpe data is not present in cve_json
-            cpe_data=self.cve_json.get("configurations", {})
+
+            # changed code by sudesh to fix the issue of stopping cpe data refresh if cpe data is not present in cve_json
+            cpe_data = self.cve_json.get("configurations", {})
             if len(cpe_data) == 0:
-                self.cve_json["configurations"] = self.cve_obj.json.get("configurations")
-                
-            vendors_products = convert_cpes(self.cve_json.get("configurations", {}))                
+                self.cve_json["configurations"] = self.cve_obj.json.get(
+                    "configurations"
+                )
+
+            vendors_products = convert_cpes(self.cve_json.get("configurations", {}))
             self.cve_obj.vendors = flatten_vendors(vendors_products)
             db.session.commit()
 

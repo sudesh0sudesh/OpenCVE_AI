@@ -3,7 +3,7 @@ import json
 import os
 from base64 import b64encode
 from pathlib import Path
-from unittest.mock import patch, Mock, MagicMock
+from unittest.mock import MagicMock, Mock, patch
 
 tests_directory = os.path.dirname(os.path.realpath(__file__))
 os.environ["OPENCVE_CONFIG"] = str(Path(tests_directory) / "opencve.cfg")
@@ -23,10 +23,10 @@ from opencve.commands.utils import CveUtil
 from opencve.extensions import db
 from opencve.models.cve import Cve
 from opencve.models.cwe import Cwe
+from opencve.models.products import Product
 from opencve.models.tags import UserTag
 from opencve.models.users import User
 from opencve.models.vendors import Vendor
-from opencve.models.products import Product
 from opencve.tasks.events import handle_events as handle_events_task
 
 

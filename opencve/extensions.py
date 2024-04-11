@@ -1,16 +1,16 @@
 from celery import Celery
 from flask_admin import Admin
 from flask_debugtoolbar import DebugToolbarExtension
-from flask_login import current_user
 from flask_gravatar import Gravatar
+from flask_limiter import Limiter
+from flask_login import current_user
 from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
-from flask_user import UserManager, EmailManager
+from flask_user import EmailManager, UserManager
 from flask_user.forms import EditUserProfileForm, RegisterForm, unique_email_validator
 from flask_wtf import RecaptchaField
 from flask_wtf.csrf import CSRFProtect
-from flask_limiter import Limiter
-from wtforms import validators, StringField
+from wtforms import StringField, validators
 
 
 class CustomUserManager(UserManager):

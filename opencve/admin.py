@@ -175,8 +175,8 @@ class HomeView(AdminIndexView):
 
     @expose("/tasks/<id>")
     def task(self, id):
-        from .models.tasks import Task
         from .models.changes import Change
+        from .models.tasks import Task
 
         task = Task.query.get(id)
         changes = (

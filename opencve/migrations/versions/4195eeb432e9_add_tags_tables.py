@@ -10,8 +10,8 @@ Create Date: 2021-06-16 21:27:51.683602
 revision = "4195eeb432e9"
 down_revision = "33cd640e1112"
 
-from alembic import op
 import sqlalchemy as sa
+from alembic import op
 from sqlalchemy.dialects import postgresql
 from sqlalchemy_utils import UUIDType
 

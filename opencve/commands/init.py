@@ -5,6 +5,7 @@ import shutil
 import click
 from flask.cli import with_appcontext
 
+from opencve.commands import error, info
 from opencve.configuration import (
     DEFAULT_CONFIG,
     DEFAULT_WELCOME_FILES,
@@ -12,7 +13,6 @@ from opencve.configuration import (
     OPENCVE_HOME,
     OPENCVE_WELCOME_FILES,
 )
-from opencve.commands import info, error
 
 
 def create_config():

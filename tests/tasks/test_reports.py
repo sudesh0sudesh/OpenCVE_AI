@@ -1,17 +1,17 @@
 from datetime import datetime
+from unittest.mock import MagicMock, patch
 
 import pytest
-from unittest.mock import patch, MagicMock
 from flask_user import EmailError
 
 from opencve.extensions import db
 from opencve.models.alerts import Alert
-from opencve.models.vendors import Vendor
 from opencve.models.reports import Report
+from opencve.models.vendors import Vendor
 from opencve.tasks.alerts import handle_alerts
 from opencve.tasks.reports import (
-    get_top_alerts,
     get_sorted_alerts,
+    get_top_alerts,
     get_users_with_alerts,
     get_vendors_products,
     handle_reports,

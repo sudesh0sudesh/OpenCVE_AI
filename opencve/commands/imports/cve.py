@@ -1,21 +1,20 @@
+import os
 import time
 
 import arrow
 import requests
-import os
 from openai import OpenAI
 
 from opencve.commands import info, timed_operation
 from opencve.extensions import db
-from opencve.utils import convert_cpes, flatten_vendors, weaknesses_to_flat
 from opencve.models import get_uuid
 from opencve.models.changes import Change
 from opencve.models.cve import Cve
-from opencve.models.tasks import Task
-from opencve.models.products import Product
-from opencve.models.vendors import Vendor
 from opencve.models.metas import Meta
-
+from opencve.models.products import Product
+from opencve.models.tasks import Task
+from opencve.models.vendors import Vendor
+from opencve.utils import convert_cpes, flatten_vendors, weaknesses_to_flat
 
 NVD_API_URL = "https://services.nvd.nist.gov/rest/json/cves/2.0"
 
@@ -44,9 +43,9 @@ def run():
 
     start_index = 0
     total_results = 0
-    openai_api_key=os.environ.get("OPEN_AI_KEY",None)
+    openai_api_key = os.environ.get("OPEN_AI_KEY", None)
     client = OpenAI(api_key=openai_api_key)
-    instruction="Your sole purpose is to extract only a single cpe information in the format 'cpe:2.3:a:vendor:product' from the provided CVE summary; Replace a with h for hardware or o for Operating system based on type of vulnerbility. If there is no match please return 'cpe:2.3:a:::'  Answer without any heading and other information."
+    instruction = "Your sole purpose is to extract only a single cpe information in the format 'cpe:2.3:a:vendor:product' from the provided CVE summary; Replace a with h for hardware or o for Operating system based on type of vulnerbility. If there is no match please return 'cpe:2.3:a:::'  Answer without any heading and other information."
 
     while start_index <= total_results:
         url = url_template.format(idx=start_index)
@@ -88,61 +87,59 @@ def run():
 
                 # Construct CWE and CPE lists
                 cwes = weaknesses_to_flat(cve_data.get("weaknesses"))
-                
-                 # In case of multiple languages, keep the EN one
+
+                # In case of multiple languages, keep the EN one
                 descriptions = cve_data["descriptions"]
                 if len(descriptions) > 1:
                     descriptions = [
                         d for d in descriptions if d["lang"] in ("en", "en-US")
                     ]
                 summary = descriptions[0]["value"]
-                cpe_info=cve_data.get("configurations", {})
-                #info(cpe_info)
-                if (len(cpe_info) == 0) and openai_api_key is not None and not summary.startswith("Rejected reason:"):
-                    
+                cpe_info = cve_data.get("configurations", {})
+                # info(cpe_info)
+                # OpenAI API call to get cpe information
+                # Changed code for tracking
+                if (
+                    (len(cpe_info) == 0)
+                    and openai_api_key is not None
+                    and not summary.startswith("Rejected reason:")
+                ):
+
                     info(summary)
                     try:
-                        prompt= f"CVE SUMMARY:{summary}"
-                        
-                        completion=client.chat.completions.create(
+                        prompt = f"CVE SUMMARY:{summary}"
+
+                        completion = client.chat.completions.create(
                             model="gpt-3.5-turbo-0125",
                             messages=[
                                 {"role": "system", "content": instruction},
                                 {"role": "user", "content": prompt},
-                            ]
+                            ],
                         )
-                        cpe=completion.choices[0].message.content
-                        cve_data["configurations"]=[{
-                            "nodes":[
-                                { 
-                                 "operator": "OR",
-                                  "negate": False,
-                                  "cpeMatch": [
-                                      {
-                                            "vulnerable": True,
-                                            "criteria": cpe
-                                      }
-                                  ]
-                                  
-                                 
-                                    
-                                }
-                            
-                            
-                        ]}]
-                        cpe_info=cve_data.get("configurations", {})
+                        cpe = completion.choices[0].message.content
+                        cve_data["configurations"] = [
+                            {
+                                "nodes": [
+                                    {
+                                        "operator": "OR",
+                                        "negate": False,
+                                        "cpeMatch": [
+                                            {"vulnerable": True, "criteria": cpe}
+                                        ],
+                                    }
+                                ]
+                            }
+                        ]
+                        cpe_info = cve_data.get("configurations", {})
                         info(cpe_info)
-                        
+
                     except Exception as e:
-                        cpe_info={}
-                    
-                    
+                        cpe_info = {}
+                        info(f"Exception triggered in import cve.py: {str(e)}")
+                        info(cpe_info)
+
                 vendors_products = convert_cpes(cpe_info)
                 vendors_flatten = flatten_vendors(vendors_products)
-
-               
-                
-                
 
                 # Create the CVEs mappings
                 mappings["cves"].append(

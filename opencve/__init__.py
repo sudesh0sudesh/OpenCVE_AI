@@ -10,7 +10,6 @@ from opencve.controllers.main import main, welcome
 from opencve.extensions import db
 from opencve.settings import env_config
 
-
 with open(Path(__file__).parent.resolve() / "VERSION", encoding="utf-8") as version:
     __version__ = version.readline().rstrip()
 

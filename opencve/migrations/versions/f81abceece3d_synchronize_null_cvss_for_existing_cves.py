@@ -12,8 +12,8 @@ down_revision = "41ad8e9163d4"
 
 import datetime
 
-from alembic import op
 import sqlalchemy as sa
+from alembic import op
 from sqlalchemy.ext.declarative import declarative_base
 
 from opencve.models.cve import Cve

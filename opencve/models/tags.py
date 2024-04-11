@@ -1,6 +1,6 @@
-from sqlalchemy_utils import UUIDType
 from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy.schema import UniqueConstraint
+from sqlalchemy_utils import UUIDType
 
 from opencve.extensions import db
 from opencve.models import BaseModel, alerts_events

@@ -1,7 +1,7 @@
 import pytest
-from werkzeug.exceptions import NotFound
 from flask_paginate import Pagination
 from flask_sqlalchemy import Pagination as PaginationSQLAlchemy
+from werkzeug.exceptions import NotFound
 
 from opencve.controllers.base import BaseController
 from opencve.models.cve import Cve

@@ -3,8 +3,8 @@ from unittest.mock import patch
 
 from opencve.extensions import db
 from opencve.models.alerts import Alert
-from opencve.models.vendors import Vendor
 from opencve.models.reports import Report
+from opencve.models.vendors import Vendor
 from opencve.tasks.alerts import handle_alerts
 from opencve.tasks.reports import handle_reports
 

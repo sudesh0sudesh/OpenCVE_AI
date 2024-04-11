@@ -1,9 +1,10 @@
+from flask import abort
 from flask import current_app as app
-from flask import abort, flash, redirect, render_template, request, url_for
+from flask import flash, redirect, render_template, request, url_for
 from flask_user import current_user
 from sqlalchemy import and_
 from sqlalchemy.dialects.postgresql import array
-from sqlalchemy.orm import joinedload, aliased
+from sqlalchemy.orm import aliased, joinedload
 
 from opencve.constants import PRODUCT_SEPARATOR
 from opencve.controllers.main import main, welcome

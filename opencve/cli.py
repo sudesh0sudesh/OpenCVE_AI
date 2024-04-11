@@ -5,11 +5,11 @@ import click
 from opencve import __version__
 from opencve.commands.celery import celery
 from opencve.commands.create_user import create_user
-from opencve.commands.init import init
-from opencve.commands.upgrade_db import upgrade_db
 from opencve.commands.imports import import_data
-from opencve.commands.webserver import webserver
+from opencve.commands.init import init
 from opencve.commands.migrate_nvd import migrate_nvd
+from opencve.commands.upgrade_db import upgrade_db
+from opencve.commands.webserver import webserver
 
 
 @click.group()

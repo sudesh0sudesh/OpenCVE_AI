@@ -1,13 +1,13 @@
+from unittest.mock import patch
+
 import pytest
 from werkzeug.exceptions import NotFound
 
-from unittest.mock import patch
-
+from opencve.controllers.reports import ReportController
 from opencve.extensions import db
 from opencve.models.alerts import Alert
 from opencve.models.reports import Report
 from opencve.models.vendors import Vendor
-from opencve.controllers.reports import ReportController
 from opencve.tasks.alerts import handle_alerts
 from opencve.tasks.reports import handle_reports
 

@@ -1,12 +1,12 @@
 from collections import OrderedDict
 
-from flask import request, render_template
+from flask import render_template, request
 from flask_login import login_required
 from flask_user import current_user
 
 from opencve.context import _humanize_filter
-from opencve.controllers.main import main
 from opencve.controllers.alerts import AlertController
+from opencve.controllers.main import main
 from opencve.controllers.reports import ReportController
 
 

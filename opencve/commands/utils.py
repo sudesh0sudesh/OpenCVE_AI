@@ -1,6 +1,7 @@
+import os
+
 import arrow
 from nested_lookup import nested_lookup
-import os
 from openai import OpenAI
 
 from opencve.commands import info
@@ -53,9 +54,9 @@ class CveUtil(object):
 
     @classmethod
     def create_cve(cls, cve_json):
-        openai_api_key=os.environ.get("OPEN_AI_KEY",None)
+        openai_api_key = os.environ.get("OPEN_AI_KEY", None)
         client = OpenAI(api_key=openai_api_key)
-        instruction="Your sole purpose is to extract only a single cpe information in the format 'cpe:2.3:a:vendor:product' from the provided CVE summary; Replace a with h for hardware or o for Operating system based on type of vulnerbility. If there is no match please return 'cpe:2.3:a:::'  Answer without any heading and other information."
+        instruction = "Your sole purpose is to extract only a single cpe information in the format 'cpe:2.3:a:vendor:product' from the provided CVE summary; Replace a with h for hardware or o for Operating system based on type of vulnerbility. If there is no match please return 'cpe:2.3:a:::'  Answer without any heading and other information."
 
         # Takes the CVSS scores
         if "cvssMetricV31" in cve_json["metrics"]:
@@ -72,57 +73,53 @@ class CveUtil(object):
 
         # Construct CWE and CPE lists
         cwes = weaknesses_to_flat(cve_json.get("weaknesses"))
-        
-         # In case of multiple languages, keep the EN one
+
+        # In case of multiple languages, keep the EN one
         descriptions = cve_json["descriptions"]
         if len(descriptions) > 1:
             descriptions = [d for d in descriptions if d["lang"] in ("en", "en-US")]
         summary = descriptions[0]["value"]
-        
-        cpe_info=cve_json.get("configurations", {})
-        
-        if (len(cpe_info) == 0) and openai_api_key is not None and not summary.startswith("Rejected reason:"):
-            
+
+        cpe_info = cve_json.get("configurations", {})
+        # open ai integration to get cpe data
+        # changed code for tracking
+        if (
+            (len(cpe_info) == 0)
+            and openai_api_key is not None
+            and not summary.startswith("Rejected reason:")
+        ):
+
             info(summary)
             try:
-                prompt= f"CVE SUMMARY:{summary}"
-                
-                completion=client.chat.completions.create(
+                prompt = f"CVE SUMMARY:{summary}"
+
+                completion = client.chat.completions.create(
                     model="gpt-3.5-turbo-0125",
                     messages=[
                         {"role": "system", "content": instruction},
                         {"role": "user", "content": prompt},
-                    ]
+                    ],
                 )
-                cpe=completion.choices[0].message.content
-                cve_json["configurations"]=[{
-                    "nodes":[
-                        { 
-                            "operator": "OR",
-                            "negate": False,
-                            "cpeMatch": [
-                                {
-                                    "vulnerable": True,
-                                    "criteria": cpe
-                                }
-                            ]
-                            
-                            
-                            
-                        }
-                    
-                    
-                ]}]
-                cpe_info=cve_json.get("configurations", {})
+                cpe = completion.choices[0].message.content
+                cve_json["configurations"] = [
+                    {
+                        "nodes": [
+                            {
+                                "operator": "OR",
+                                "negate": False,
+                                "cpeMatch": [{"vulnerable": True, "criteria": cpe}],
+                            }
+                        ]
+                    }
+                ]
+                cpe_info = cve_json.get("configurations", {})
                 info(cpe_info)
-                
+
             except Exception as e:
-                cpe_info={}
-        
+                cpe_info = {}
+
         vendors_products = convert_cpes(cpe_info)
         vendors_flatten = flatten_vendors(vendors_products)
-
-       
 
         # Create the CVE
         cve = Cve(

@@ -3,21 +3,19 @@ from flask_restful import Api
 
 from opencve.api.alerts import AlertListResource, AlertResource
 from opencve.api.cves import CveListResource, CveResource
-from opencve.api.cwes import CweListResource, CweResource, CweCveResource
+from opencve.api.cwes import CweCveResource, CweListResource, CweResource
 from opencve.api.products import (
     FlatProductListResource,
+    ProductCveResource,
     ProductListResource,
     ProductResource,
-    ProductCveResource,
 )
 from opencve.api.reports import ReportListResource, ReportResource
-from opencve.api.vendors import VendorListResource, VendorResource, VendorCveResource
-
 from opencve.api.subscriptions import (
-    SubscriptionListRessourceVendor,
     SubscriptionListRessourceProduct,
+    SubscriptionListRessourceVendor,
 )
-
+from opencve.api.vendors import VendorCveResource, VendorListResource, VendorResource
 
 api_bp = Blueprint("api", __name__)
 api = Api(api_bp)

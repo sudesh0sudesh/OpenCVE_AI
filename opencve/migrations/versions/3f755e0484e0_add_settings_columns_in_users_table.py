@@ -10,8 +10,8 @@ Create Date: 2021-12-23 22:57:59.990718
 revision = "3f755e0484e0"
 down_revision = "2132d05ea0e2"
 
-from alembic import op
 import sqlalchemy as sa
+from alembic import op
 from sqlalchemy_utils import JSONType
 
 

@@ -11,8 +11,8 @@ revision = "0bcd7a25924a"
 down_revision = "1c7aecfc5f6e"
 
 import arrow
-from alembic import op
 import sqlalchemy as sa
+from alembic import op
 
 from opencve.models.cve import Cve
 from opencve.models.metas import Meta

@@ -7,7 +7,6 @@ from opencve.api.fields import HumanizedNameField, ProductsListField
 from opencve.controllers.cves import CveController
 from opencve.controllers.vendors import VendorController
 
-
 vendor_list_fields = {
     "name": fields.String(attribute="name"),
     "human_name": HumanizedNameField(attribute="name"),

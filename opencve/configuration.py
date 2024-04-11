@@ -1,7 +1,6 @@
-import os
 import configparser
+import os
 from pathlib import Path
-
 
 DEFAULT_CONFIG = Path(__file__).parent.resolve() / "default.cfg"
 DEFAULT_WELCOME_FILES = Path(__file__).parent.resolve() / "templates/_welcome"

@@ -1,5 +1,4 @@
 import pytest
-
 from flask import g
 
 from opencve import create_app

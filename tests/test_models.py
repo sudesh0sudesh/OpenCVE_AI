@@ -5,12 +5,9 @@ from opencve.models.cve import Cve
 from opencve.models.cwe import Cwe
 from opencve.models.metas import Meta
 from opencve.models.products import Product
-from opencve.models.vendors import Vendor
-from opencve.models.users import User
-from opencve.models.products import Product
-from opencve.models.vendors import Vendor
 from opencve.models.tags import CveTag, UserTag
 from opencve.models.users import User
+from opencve.models.vendors import Vendor
 
 
 def test_new_cve():

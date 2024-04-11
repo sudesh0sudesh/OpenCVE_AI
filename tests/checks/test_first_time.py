@@ -1,6 +1,6 @@
 from opencve.constants import PRODUCT_SEPARATOR
-from opencve.models.cve import Cve
 from opencve.models.changes import Change
+from opencve.models.cve import Cve
 from opencve.models.events import Event
 from opencve.models.products import Product
 from opencve.models.tasks import Task

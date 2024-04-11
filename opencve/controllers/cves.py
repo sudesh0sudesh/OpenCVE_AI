@@ -1,7 +1,8 @@
 import json
 
+from flask import abort
 from flask import current_app as app
-from flask import abort, redirect, render_template, request, url_for
+from flask import redirect, render_template, request, url_for
 from flask_paginate import Pagination
 from sqlalchemy import and_, or_
 
@@ -10,11 +11,10 @@ from opencve.controllers.base import BaseController
 from opencve.controllers.main import main
 from opencve.controllers.tags import UserTagController
 from opencve.models.cve import Cve
+from opencve.models.cwe import Cwe
 from opencve.models.products import Product
 from opencve.models.tags import CveTag
 from opencve.models.vendors import Vendor
-
-from opencve.models.cwe import Cwe
 
 
 class CveController(BaseController):

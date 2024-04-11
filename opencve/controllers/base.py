@@ -1,4 +1,5 @@
-from flask import abort, current_app as app
+from flask import abort
+from flask import current_app as app
 from flask_paginate import Pagination
 from werkzeug.datastructures import ImmutableMultiDict
 

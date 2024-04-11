@@ -38,9 +38,11 @@ def run():
                 id=get_uuid(),
                 cwe_id=f"CWE-{c['ID']}",
                 name=c["Name"],
-                description=c.Description.cdata
-                if hasattr(c, "Description")
-                else c.Summary.cdata,
+                description=(
+                    c.Description.cdata
+                    if hasattr(c, "Description")
+                    else c.Summary.cdata
+                ),
             )
 
     # Insert the objects in database

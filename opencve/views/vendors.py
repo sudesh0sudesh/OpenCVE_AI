@@ -1,4 +1,4 @@
-from flask import request, render_template
+from flask import render_template, request
 
 from opencve.controllers.main import main
 from opencve.controllers.products import ProductController

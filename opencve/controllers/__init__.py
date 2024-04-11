@@ -1,7 +1,7 @@
 from pathlib import Path
 
-from flask import send_from_directory
 from flask import current_app as app
+from flask import send_from_directory
 
 from opencve.controllers.main import main
 

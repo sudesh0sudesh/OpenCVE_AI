@@ -6,7 +6,6 @@ from opencve.api.cves import cves_fields
 from opencve.controllers.cves import CveController
 from opencve.controllers.cwes import CweController
 
-
 cwes_fields = {
     "id": fields.String(attribute="cwe_id"),
     "name": fields.String(attribute="name"),

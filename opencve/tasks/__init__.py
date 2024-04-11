@@ -1,10 +1,10 @@
 from datetime import timedelta
 
 import redis
-from redis.lock import Lock
 from celery import chain
 from celery.schedules import crontab
 from celery.utils.log import get_task_logger
+from redis.lock import Lock
 
 from opencve.extensions import cel
 from opencve.tasks.alerts import handle_alerts

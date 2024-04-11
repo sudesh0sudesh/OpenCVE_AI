@@ -2,7 +2,6 @@ from pathlib import Path
 
 from setuptools import find_packages, setup
 
-
 with open(
     Path(__file__).parent.resolve() / "opencve" / "VERSION", encoding="utf-8"
 ) as ver:

@@ -8,9 +8,9 @@ from opencve.constants import EMAIL_CONFIRMATION_MESSAGE
 from opencve.context import (
     _cvss_bg,
     _cvss_percent,
-    _excerpt,
     _event_description,
     _event_excerpt,
+    _excerpt,
     _humanize_filter,
     _metric_bg,
     _remove_product_separator,

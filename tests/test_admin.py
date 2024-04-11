@@ -1,7 +1,8 @@
+import pytest
+
+from opencve.admin import UserModelView
 from opencve.extensions import db
 from opencve.models.users import User
-from opencve.admin import UserModelView
-import pytest
 
 
 @pytest.mark.freeze_time

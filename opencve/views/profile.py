@@ -4,8 +4,6 @@ from flask_login import current_user, login_required
 
 from opencve.controllers.main import main
 from opencve.controllers.tags import UserTagController
-from opencve.models.cve import Cve
-from opencve.models.tags import CveTag, UserTag
 from opencve.extensions import db
 from opencve.forms import (
     ChangeEmailForm,
@@ -14,6 +12,8 @@ from opencve.forms import (
     MailNotificationsForm,
     TagForm,
 )
+from opencve.models.cve import Cve
+from opencve.models.tags import CveTag, UserTag
 
 
 @main.route("/account/subscriptions", methods=["GET"])

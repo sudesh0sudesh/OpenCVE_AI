@@ -5,7 +5,6 @@ from opencve.api.base import BaseResource
 from opencve.api.fields import HumanizedNameField
 from opencve.models.users import User
 
-
 vendor_list_fields = {
     "name": fields.String(attribute="name"),
     "human_name": HumanizedNameField(attribute="name"),

@@ -1,8 +1,8 @@
 from functools import wraps
 
-from flask import request
 from flask import current_app as app
-from flask_restful import Resource, HTTPException
+from flask import request
+from flask_restful import HTTPException, Resource
 
 from opencve.extensions import limiter
 from opencve.models.users import User

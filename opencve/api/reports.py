@@ -9,7 +9,6 @@ from opencve.controllers.alerts import AlertController
 from opencve.controllers.reports import ReportController
 from opencve.models.users import User
 
-
 report_list_fields = {
     "id": fields.String(attribute="public_link"),
     "created_at": DatetimeField(),

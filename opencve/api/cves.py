@@ -5,7 +5,6 @@ from opencve.api.base import BaseResource
 from opencve.api.fields import CveVendorsField, DatetimeField
 from opencve.controllers.cves import CveController
 
-
 cves_fields = {
     "id": fields.String(attribute="cve_id"),
     "summary": fields.String(attribute="summary"),

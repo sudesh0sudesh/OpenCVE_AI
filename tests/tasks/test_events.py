@@ -1,11 +1,11 @@
 from pathlib import Path
-from unittest.mock import patch, Mock, PropertyMock
+from unittest.mock import Mock, PropertyMock, patch
 
 from opencve.extensions import db
 from opencve.models.changes import Change
+from opencve.models.cve import Cve
 from opencve.models.events import Event
 from opencve.models.tasks import Task
-from opencve.models.cve import Cve
 
 
 def test_new_cve_detected(handle_events):

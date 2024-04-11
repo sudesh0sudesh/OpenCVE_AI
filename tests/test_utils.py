@@ -1,7 +1,7 @@
 from opencve.constants import PRODUCT_SEPARATOR
 from opencve.extensions import db
-from opencve.utils import convert_cpes, flatten_vendors, get_cwes, get_cwes_details
 from opencve.models.cwe import Cwe
+from opencve.utils import convert_cpes, flatten_vendors, get_cwes, get_cwes_details
 
 
 def test_convert_empty_conf():

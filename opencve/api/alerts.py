@@ -8,7 +8,6 @@ from opencve.controllers.alerts import AlertController
 from opencve.controllers.reports import ReportController
 from opencve.models.users import User
 
-
 alert_fields = {
     "id": fields.String(attribute="id"),
     "created_at": DatetimeField(),

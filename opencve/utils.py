@@ -1,9 +1,10 @@
-from nested_lookup import nested_lookup
 from difflib import HtmlDiff
 
+from nested_lookup import nested_lookup
+
+from opencve.commands import info
 from opencve.constants import PRODUCT_SEPARATOR
 from opencve.models.cwe import Cwe
-from opencve.commands import info
 
 
 def convert_cpes(conf):
@@ -16,14 +17,14 @@ def convert_cpes(conf):
     # Try old NVD CVE format if no criteria found
     if not uris:
         uris = nested_lookup("cpe23Uri", conf)
-        
-    
 
     # Create a list of tuple (vendor, product)
     cpes_t = list(set([tuple(uri.split(":")[3:5]) for uri in uris]))
 
     # Transform it into nested dictionnary
+
     cpes = {}
+    # changed code by sudesh
     try:
         for vendor, product in cpes_t:
             if vendor not in cpes:
@@ -33,7 +34,6 @@ def convert_cpes(conf):
         info(e)
         info(f"Error in convert_cpes: {cpes_t}")
         cpes = {}
-    
 
     return cpes
 
@@ -115,6 +115,8 @@ def vendors_conf_to_dict(conf):
     cpes_t = list(set([tuple(uri.split(":")[3:5]) for uri in uris]))
 
     # Transform it into nested dictionary
+    # changed code by sudesh
+
     cpes = {}
     try:
         for vendor, product in cpes_t:
@@ -124,7 +126,6 @@ def vendors_conf_to_dict(conf):
     except Exception as e:
         info(e)
         cpes = {}
-    
 
     return cpes
 
@@ -134,8 +135,9 @@ def vendors_dict_to_flat(vendors):
     Takes a list of nested vendors and products and flat them.
     """
     data = []
+    # changed code by sudesh
     try:
-        
+
         for vendor, products in vendors.items():
             data.append(vendor)
         for product in products:
@@ -143,7 +145,7 @@ def vendors_dict_to_flat(vendors):
     except Exception as e:
         info(e)
         data = []
-   
+
     return data
 
 

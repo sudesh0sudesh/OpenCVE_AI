@@ -1,7 +1,7 @@
 import os
 import tempfile
-from pathlib import Path
 import warnings
+from pathlib import Path
 
 from flask_admin import Admin
 from flask_admin.base import MenuLink
@@ -11,13 +11,13 @@ from opencve.admin import (
     CveModelView,
     EventModelView,
     HomeView,
+    ProductModelView,
     UserModelView,
     VendorModelView,
-    ProductModelView,
 )
 from opencve.configuration import config
-from opencve.extensions import CustomEmailManager
 from opencve.extensions import (
+    CustomEmailManager,
     cel,
     csrf,
     db,

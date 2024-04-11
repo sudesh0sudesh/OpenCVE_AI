@@ -1,5 +1,5 @@
-from sqlalchemy.dialects.postgresql import JSONB
 from flask_user import current_user
+from sqlalchemy.dialects.postgresql import JSONB
 
 from opencve.extensions import db
 from opencve.models import BaseModel

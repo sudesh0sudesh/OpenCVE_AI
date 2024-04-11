@@ -10,10 +10,10 @@ Create Date: 2020-03-28 13:06:42.037072
 revision = "8bdc527d8d49"
 down_revision = None
 
-from alembic import op
 import sqlalchemy as sa
-from sqlalchemy_utils import UUIDType, JSONType
+from alembic import op
 from sqlalchemy.dialects import postgresql
+from sqlalchemy_utils import JSONType, UUIDType
 
 
 def upgrade():
